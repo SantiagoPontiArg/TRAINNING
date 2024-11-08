@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Números Secuenciales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+        .game-container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            position: relative;
+        }
+        #counter {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .instructions {
+            font-size: 1em;
+            color: #555;
+        }
+        .mouse-image {
+            width: 150px;
+            margin-top: 20px;
+            transition: transform 0.1s;
+        }
+        .click-animation {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h2>Juego de Números Secuenciales</h2>
+        <div id="counter">2</div>
+        <div class="instructions">
+            <p>Haz clic derecho para retroceder en la secuencia.</p>
+            <p>Haz clic izquierdo para avanzar.</p>
+        </div>
+        <img src="https://i.imgur.com/U3JZ7Zh.png" alt="Mano con mouse" class="mouse-image" id="mouse-image">
+    </div>
+
+    <script>
+        let counter = 2;
+
+        // Actualiza el contador
+        function updateCounter(value) {
+            counter += value;
+            document.getElementById("counter").textContent = counter;
+        }
+
+        // Animación de clic en la imagen del mouse
+        function animateClick() {
+            const mouseImage = document.getElementById("mouse-image");
+            mouseImage.classList.add("click-animation");
+            setTimeout(() => mouseImage.classList.remove("click-animation"), 100);
+        }
+
+        // Manejo de eventos de clic
+        document.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+            if (counter > 2) {
+                updateCounter(-2);  // Retrocede en la secuencia
+            }
+            animateClick(); // Muestra la animación del clic
+        });
+
+        document.addEventListener("click", function() {
+            updateCounter(2);  // Avanza en la secuencia
+            animateClick(); // Muestra la animación del clic
+        });
+    </script>
+</body>
+</html>
